@@ -1,0 +1,96 @@
+{% extends 'user_navigation.html' %}
+{% load static %}
+{% block body %}
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+						<div class="col-md-8 offset-md-2">
+
+							<!-- Account Content -->
+							<div class="account-content">
+								<div class="row align-items-center justify-content-center">
+									<div class="col-md-7 col-lg-6 login-left">
+										<img src="{% static 'user/img/login-banner.png' %}" class="img-fluid" alt="Login Banner">
+									</div>
+									<div class="col-md-12 col-lg-6 login-right">
+										<div class="login-header">
+											<h3>Registration Form</h3>
+										</div>
+
+										<!-- Register Form -->
+										<form action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-check form-check-inline">
+                                              <input class="form-check-input" type="radio" name="mode" id="inlineRadio1" value="Patient" required>
+                                              <label class="form-check-label" for="inlineRadio1">Patient</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                              <input class="form-check-input" type="radio" name="mode" id="inlineRadio2" value="Doctor" required>
+                                              <label class="form-check-label" for="inlineRadio2">Doctor</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                              <input class="form-check-input" type="radio" name="mode" id="inlineRadio3" value="Hospital" required>
+                                              <label class="form-check-label" for="inlineRadio2">Hospital</label>
+                                            </div>
+											<div class="form-check form-check-inline">
+                                              <input class="form-check-input" type="radio" name="mode" id="inlineRadio4" value="Medical" required>
+                                              <label class="form-check-label" for="inlineRadio2">Medical</label>
+                                            </div>
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="username">
+												<span>{{form.username.errors}}</span>
+												<label class="focus-label">Username</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="first_name">
+												<span>{{form.first_name.errors}}</span>
+												<label class="focus-label">First Name</label>
+											</div>
+                                            <div class="form-group form-focus">
+												<input type="text" class="form-control floating" name="last_name">
+												<span>{{form.last_name.errors}}</span>
+												<label class="focus-label">Last Name</label>
+											</div>
+
+                                            <div class="form-group form-focus">
+												<input type="email" class="form-control floating" name="email">
+												<span>{{form.email.errors}}</span>
+												<label class="focus-label">Email</label>
+											</div>
+											<div class="form-group form-focus">
+												<input type="password" class="form-control floating" name="password1">
+												<label class="focus-label">Create Password</label>
+												<span>{{form.password1.errors}}</span>
+											</div>
+                                            <div class="form-group form-focus">
+												<input type="password" class="form-control floating" name="password2">
+												<span>{{form.password2.errors}}</span>
+												<label class="focus-label">Confirm Password</label>
+											</div>
+											<div class="text-right">
+												<a class="forgot-link" href="{% url 'login' %}">Already have an account?</a>
+											</div>
+											<button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
+
+										</form>
+										<!-- /Register Form -->
+
+									</div>
+								</div>
+							</div>
+							<!-- /Account Content -->
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- /Page Content -->
+
+{% endblock %}

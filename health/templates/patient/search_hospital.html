@@ -1,0 +1,127 @@
+{% extends 'patient/sidebar.html' %}
+{% load static %}
+{% block b %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Search Hospital</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<h4 style="color:green"> filtered location : "{{l}}" , Hospital : "{{n}}" </h4>
+                        <div class="col-md-8 col-lg-8 col-xl-9">
+						{% for i in data %}
+							<!-- Doctor Widget -->
+							<div class="card">
+								<div class="card-body">
+									<div class="doctor-widget">
+										<div class="doc-info-left">
+											<div class="doctor-img">
+												<a href="doctor-profile.html">
+                                                    {% if i.image %}
+													<img src="{{i.image.url}}" class="img-fluid" alt="User Image">
+                                                    {% else %}
+                                                    {% endif %}
+												</a>
+											</div>
+											<div class="doc-info-cont">
+												<h4 class="doc-name"><a href="doctor-profile.html">{{i.name}}</a></h4>
+
+
+												<div class="clinic-details">
+													<p ><i style="margin-left:4%;margin-top3%"></i> {{i.user.first_name}} {{i.user.last_name}}</p>
+													<p class="doc-location"><i  class="fas fa-map-marker-alt"></i> {{i.address}}</p>
+													<p class="doc-location"><i class="fas fa-calendar-alt"></i> {{i.foundation_date}}</p>
+													<p class="doc-location"><i class="fas fa-phone"></i> {{i.mobile}}</p>
+
+
+													<ul class="clinic-gallery">
+														<li>
+															<a href="{% static 'user/img/features/feature-01.jpg' %}" data-fancybox="gallery">
+																<img src="{% static 'user/img/features/feature-01.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'user/img/features/feature-02.jpg' %}" data-fancybox="gallery">
+																<img  src="{% static 'user/img/features/feature-02.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'user/img/features/feature-03.jpg' %}" data-fancybox="gallery">
+																<img src="{% static 'user/img/features/feature-03.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'user/img/features/feature-04.jpg' %}" data-fancybox="gallery">
+																<img src="{% static 'user/img/features/feature-04.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<p class="doc-speciality" style="margin-top:5%">{{i.biography}}</p>
+													</ul>
+												</div>
+
+											</div>
+										</div>
+										<div class="doc-info-right">
+											<div class="clini-infos">
+												<ul>
+
+													<li><i class="fas fa-user"></i>{{i.nom_doctor}}  Total Doctors</li>
+													<li><i class="fas fa-bed"></i>{{i.nom_beds}}  Total Beds</li>
+													<li><i class="fas fa-clock"></i>{{i.days_time}}</li>
+													<li><i class="fas fa-pen-nib"></i>{{i.timing}}</li>
+												</ul>
+											</div>
+											<div class="clinic-booking">
+
+												<a class="apt-btn" href="{% url 'hospital_appointment' i.id %}">Book Appointment</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+	{% endfor %}
+						</div>
+
+
+
+
+							<!-- Search Filter -->
+
+                        <div class="col-md-4 col-lg-4 col-xl-3">
+
+							<form action="" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+							<div class="card search-filter">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Search Filter</h4>
+								</div>
+								<div class="card-body">
+								<div class="filter-widget">
+									<h4>Location</h4>
+									<div class="">
+										<input type="text" class="form-control" placeholder="location" name="address">
+									</div>
+								</div>
+									<div class="filter-widget">
+									<h4>Hospital Name</h4>
+									<div class="">
+										<input type="text" class="form-control" placeholder="Hospital Name" name="name">
+									</div>
+								</div>
+
+								</div>
+									<div class="btn-search">
+										<button type="submit" class="btn btn-primary">Search</button>
+									</div>
+								</div>
+							</div>
+							<!-- /Search Filter -->
+							</form>
+						</div>
+                    </div>
+                </div>
+</div>
+{% endblock %}

@@ -1,0 +1,166 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Card</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    font-weight: 100;
+    color: white;
+}
+.card{
+    width: 400px;
+    height: 200px;
+    position: relative;
+    background: linear-gradient(to top right, rgb(11,63,87), rgb(78,68,68));
+    box-shadow: 1px 20px 50px grey;
+    border-radius: 5px;
+    padding: 1em;
+    z-index: 2;
+}
+
+.card .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{
+    font-size: 32px;
+    text-transform: uppercase;
+}
+h2{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h3{
+    position: absolute;
+    bottom: 35px;
+    left: 30px;
+    font-size: 90px;
+    text-transform: uppercase;
+    color: rgb(120,101,101);
+    opacity: 0.3;
+    z-index: -4;
+}
+
+.card .mid{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.card .mid .card-number span{
+    border: 1px solid grey;
+    padding: 3px 5px;
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
+.card-number span + span{
+    margin: 8px 15px;
+}
+
+.card .bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+.card .bottom span{
+    display: inline-block;
+    border: 1px solid grey;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-size: 14px;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.card .bottom .card-holder span{
+    width: 150px;
+    height: 22px;
+}
+.bottom span + span{
+    margin-left: 5px;
+}
+
+@media print{
+    body * {
+        visibility: hidden;
+    }
+
+    .print-container, .print-container * {
+            visibility : visible;
+    }
+    .print-container {
+        position:absolute;
+        left:0px;
+        top:0px;
+    }
+}
+</style>
+<body>
+<a href="{% url 'patient_dashboard' %}" ><i class="fa fa-arrow-circle-left" style="font-size:48px;color:red"></i> <span style="font-size:48px;color:red"">Back</span></a>
+
+    <div class="container">
+
+        <div class="card print-container">
+             <h3><i>health</i></h3>
+            <div class="top">
+                <h1><i>health</i></h1>
+                <h2>Health Card</h2>
+            </div>
+
+            <div class="mid">
+                <h2>card number</h2>
+                <div class="card-number">
+                    <span>{{first}}</span>
+                    <span>{{second}}</span>
+                    <span>{{third}}</span>
+                    <span>{{fourth}}</span>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div class="card-holder">
+                    <h2>card holder</h2>
+                    <span>{{data.user.first_name}} {{data.user.last_name}}</span>
+                </div>
+                <div class="express">
+                    <h2>expire</h2>
+                    <span>{{data.ex_month}}</span> /
+                    <span>{{data.ex_year}}</span>
+                </div>
+                <div class="cvv">
+                    <h2>cvv</h2>
+                    <span>{{data.cvv.0}}</span>
+                    <span>{{data.cvv.1}}</span>
+                    <span>{{data.cvv.2}}</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+<button onclick="window.print();">print</button>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+{% extends 'doctor/sidebar.html' %}
+{% block b %}
+{% load static %}
+
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<!-- Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Add Billing</h4>
+									{% for i in messages %}
+					<p style="color:red">{{i}}</p>
+{% endfor %}
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="biller-info">
+												<h4 class="d-block">{{data.patient.user.first_name}} {{data.patient.user.last_name}}</h4>
+												<span class="d-block text-sm text-muted">{{data.patient.user.email}}</span>
+												<span class="d-block text-sm text-muted">{{data.patient.address}}</span>
+											</div>
+										</div>
+										<div class="col-sm-6 text-sm-right">
+											<div class="billing-info">
+												<h4 class="d-block">{{data.patient.dob}}</h4>
+											</div>
+										</div>
+									</div>
+									
+									<!-- Add Item -->
+								<form action="{% url 'add_bil' data.id %}" method="post">
+									{% csrf_token %}
+									<div class="add-more-item text-right">
+										<button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Item</button>
+									</div>
+									<!-- /Add Item -->
+									
+									<!-- Billing Item -->
+									<div class="card card-table">
+										<div class="card-body">
+												<table class="table table-hover table-center">
+													<thead>
+														<tr>													
+															<th style="min-width:200px;">Title</th>					
+															<th style="min-width:200px;">Amount</th>		
+															<th style="width:80px;"></th>
+														</tr>
+													</thead>
+													<tbody>
+
+													{% for i in data.billing_record_set.all %}
+														<tr>								
+															<td>	
+																{{i.title}}
+															</td>
+															<td>
+																{{i.amount}}
+															</td>							
+															<td>
+																<a href="{% url 'delete_bill' i.id %}" onclick="return confirm('Are you sure?') " class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a>
+															</td>
+														</tr>
+													{% endfor %}
+													<tr>
+															<td>
+																<input type="text" class="form-control" name="title">
+															</td>
+															<td>
+																<input type="text" class="form-control" name="amount">
+															</td>
+															<td>
+
+															</td>
+														</tr>
+													</tbody>
+												</table>
+
+											</div>
+										</div>
+									</form>
+									</div>
+
+									<!-- /Billing Item -->
+									
+									<!-- Signature -->
+									<div class="row">
+										<div class="col-md-12 text-right">
+											<div class="signature-wrap">
+
+												<div class="sign-name">
+													<p class="mb-0">( Dr. {{request.user.first_name}} {{request.user.last_name}})</p>
+													<span class="text-muted">Signature</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /Signature -->
+									
+									<!-- Submit Section -->
+									<div class="row">
+										<div class="col-md-12">
+											<div class="submit-section">
+												<form action="" method="post">
+													{% csrf_token %}
+													<button type="submit" class="btn btn-primary submit-btn">Save</button>
+												</form>
+
+											</div>
+										</div>
+									</div>
+									<!-- /Submit Section -->
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+
+<!-- doccure/add-billing.html  30 Nov 2019 04:12:37 GMT -->
+{% endblock %}

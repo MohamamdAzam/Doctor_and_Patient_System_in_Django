@@ -1,0 +1,128 @@
+{% extends 'hospital/sidebar.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block b %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Search Appointment</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+<div class="content">
+				<div class="container">
+
+					<div class="row">
+						<div class="col-12">
+
+
+							<!-- Schedule Widget -->
+							<div class="card booking-schedule schedule-widget">
+
+								<!-- Schedule Header -->
+								<div class="schedule-header">
+									<div class="row">
+										<div class="col-md-12">
+
+											<form action="" method="post">
+												{% csrf_token %}
+												<div class="form-group">
+
+													<label>From Date</label>
+													<input type="date" class="form-control" name="from_date">
+													<label>To Date</label>
+													<input type="date" class="form-control" name="to_date">
+												</div>
+
+                                                <button type="submit"  class="btn btn-primary submit-btn">Search</button>
+							</form>
+										</div>
+
+
+										</div>
+									</div>
+								</div>
+								<!-- /Schedule Header -->
+                            </div>
+
+
+							<!-- /Submit Section -->
+
+						</div>
+					</div>
+				</div>
+{% if data %}
+
+<h4 align="center" class="card">Appointment From ({{u}}) to ({{v}}) </h4>
+<div class="card">
+                    <div class="row">
+                        <!-- Appointment List -->
+                        <div class="col-3">
+                            <p>
+                                Image
+                            </p>
+                        </div>
+                            <div class="col-5">
+                                <p>
+                                    Patient Detail
+                                </p>
+                            </div>
+
+                        <div class="col-4">
+                                    <span style="margin-right:5%;margin-left:15%">
+                                        Payment
+                                    </span>
+
+                                    <span style="margin-right:6%">
+                                        Status
+                                    </span>
+
+                                    <span>
+                                        Action
+                                    </span>
+
+                            </div>
+                        </div>
+                    </div>
+
+    {% for i in data %}
+        <div class="appointments">
+
+                <!-- Appointment List -->
+                <div class="appointment-list">
+                    <div class="profile-info-widget">
+                        <a href="patient-profile.html" class="booking-doc-img">
+                            <img src="{{i.patient.image.url}}" alt="User Image">
+                        </a>
+                        <div class="profile-det-info">
+                            <h3><a href="patient-profile.html"> {{i.patient.user.first_name}}</a></h3>
+                            <div class="patient-details">
+                                <h5><i class="far fa-clock"></i>{{i.a_date}}, {{i.a_timing}}</h5>
+                                <h5><i class="fas fa-envelope"></i> {{i.patient.user.email}}</h5>
+                                <h5 class="mb-0"><i class="fas fa-phone"></i> +1 {{i.patient.mobile}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="appointment-action">
+                        <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
+                            <i class="far fa-eye"></i> {{i.p_status}}
+                        </a>
+                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                            <i class="fas fa-check"></i>{{i.status}}
+                        </a>
+                        {% if i.status == "pending" %}
+                        <a href="{% url 'cancel_hospital_appointment' i.id %}" class="btn btn-sm bg-danger-light" onclick="return confirm('Are you sure to Cancel Appointment?')">
+                            <i class=""></i> Cancel
+                        </a>
+                        {% else%}
+                        {% if i.status == "confirmed" %}
+                        <button class="btn btn-sm bg-danger-light btn-block">
+                            <i class=""></i> -------
+                        </button>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+{% endfor %}
+
+{% endif %}
+{% endblock %}

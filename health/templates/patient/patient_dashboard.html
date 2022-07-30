@@ -1,0 +1,226 @@
+{% extends 'patient/sidebar.html' %}
+{% block b %}
+{% load static %}
+
+<h2 style="font-family:roman;color:green" align="center" class="card">All Appointment</h2>
+<div class="card">
+	{% for i in messages %}
+					<p style="color:red">{{i}}</p>
+{% endfor %}
+								<div class="card-body pt-0">
+
+									<!-- Tab Menu -->
+									<nav class="user-tabs mb-4">
+										<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+											<li class="nav-item">
+												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">Medical Records</span></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
+											</li>
+										</ul>
+									</nav>
+									<!-- /Tab Menu -->
+
+									<!-- Tab Content -->
+									<div class="tab-content pt-0">
+
+										<!-- Appointment Tab -->
+										<div id="pat_appointments" class="tab-pane fade show active">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Doctor</th>
+																	<th>Appt Date</th>
+																	<th>Booking Date</th>
+																	<th>Amount</th>
+																	<th>Follow Up</th>
+																	<th>Status</th>
+																	<th></th>
+																</tr>
+															</thead>
+																											<tbody>
+															{% for i in data %}
+																<tr>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="#" class="avatar avatar-sm mr-2">
+																				<img class="avatar-img rounded-circle" src="{{i.doctor.image.url}}" alt="User Image">
+																			</a>
+																			<a href="#">Dr. {{i.doctor.user.first_name}} {{i.doctor.user.last_name}}<span>{{i.specialist}}</span></a>
+																		</h2>
+																	</td>
+																	<td>{{i.a_date}} </td>
+																	<td>{{i.a_timing}}</td>
+																	<td>₹{{i.doctor.price}}</td>
+																	{% if i.status == "pending" %}
+																	<td><span class="badge badge-pill bg-danger-light">{{i.status}}</span></td>
+																	{% else %}
+																	{% if i.status == "confirmed" %}
+																	<td><span class="badge badge-pill bg-success-light">{{i.status}}</span></td>
+																	{% endif %}
+																	{% endif %}
+																	<td class="text-right">
+																		<div class="table-action">
+																			<a href="{% url 'patient_invoices' i.id 'appoint' %}" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+																{% endfor %}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Appointment Tab -->
+
+										<!-- Prescription Tab -->
+										<div class="tab-pane fade" id="pat_prescriptions">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Date </th>
+																	<th>Timing </th>
+																	<th>Name</th>
+																	<th>Created by </th>
+																	<th></th>
+																</tr>
+															</thead>
+																										<tbody>
+															{% for i in data %}
+																<tr>
+																	<td>
+																		{{i.a_date}}</td>
+																	<td>
+																	{{i.a_timing}}
+																	</td>
+																	<td>
+																	{{i.prescription_set.all.0.name}}
+																	</td>
+																	<td> Dr. {{i.doctor.user.first_name}} {{i.doctor.user.last_name}}<br>
+																	<span style="font-size:10px">{{i.doctor.specialist}}</span>
+																	</td>
+
+																	<td class="text-right">
+																		<div class="table-action">
+																			<a href="{% url 'patient_invoices' i.id 'presc' %}" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+																{% endfor %}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Prescription Tab -->
+
+										<!-- Medical Records Tab -->
+										<div id="pat_medical_records" class="tab-pane fade">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>ID</th>
+																	<th>Date </th>
+																	<th>Description</th>
+																	<th>File</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+															{% for i in data %}
+																<tr>
+																	<td>{{forloop.counter}}</td>
+																	<td>{{i.medical_record_set.all.0.date}}</td>
+																	<td>{{i.medical_record_set.all.0.disc}}</td>
+																	<td>{{i.medical_record_set.all.0.file}}</td>
+																	<td class="text-right">
+																		<div class="table-action">
+																			<a href="{% url 'patient_invoices' i.id 'med' %}" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															{% endfor %}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Medical Records Tab -->
+
+										<!-- Billing Tab -->
+										<div id="pat_billing" class="tab-pane fade">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>SI No.</th>
+																	<th>Doctor</th>
+																	<th>Amount</th>
+																	<th>Paid On</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+															{% for i in data %}
+																<tr>
+																	<td>
+																		{{forloop.counter}}
+																	</td>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="#" class="avatar avatar-sm mr-2">
+																				{% if i.doctor.image %}
+																				<img class="avatar-img rounded-circle" src="{{i.doctor.image.url}}" alt="User Image">
+																				{% endif %}
+																			</a>
+																			<a href="doctor-profile.html">Dr. {{i.doctor.user.first_name}} {{i.doctor.user.last_name}}<span>{{i.specialist}}</span></a>
+																		</h2>
+																	</td>
+																	<td>{{i.doctor.price}}</td>
+																	<td>{{i.a_date}}</td>
+																	<td class="text-right">
+																		<div class="table-action">
+																			<a href="{% url 'patient_invoices' i.id 'bill' %}" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															{% endfor %}
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+</div>
+{% endblock %}

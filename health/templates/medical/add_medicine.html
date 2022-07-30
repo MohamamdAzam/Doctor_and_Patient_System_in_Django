@@ -1,0 +1,79 @@
+{% extends 'medical/sidebar.html' %}
+{% load static %}
+{% block body %}
+<h2 style="font-family:roman;color:green" align="center" class="card">All Medicines & Prescription</h2>
+
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<form action="" method="post">
+										{% csrf_token %}
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Medicine</th>
+													<th>Time</th>
+													<th>Add Price</th>
+
+												</tr>
+											</thead>
+
+											{% for i in data.prescription_set.all %}
+											<tbody>
+												<tr>
+													<td>
+														{{i.name}}
+													</td>
+													<td>{{i.time}}</td>
+
+													<td>
+
+															<input type="text" class="form-control" value="{{i.id}}" name="id{{i.id}}" hidden>
+															<input type="text" class="form-control"  name="price{{i.id}}" value="{{i.price}}">
+
+													</td>
+												</tr>
+									{% endfor %}
+
+
+
+
+
+
+											</tbody>
+
+										</table>
+
+									</div>
+									<div align="center"> <input type="submit" class="btn btn-primary" value="Add"></div>
+											</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
+
+<script src="{% static 'admin/js/jquery-3.2.1.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+
+		<!-- Slimscroll JS -->
+        <script src="{% static 'admin/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+		<!-- Datatables JS -->
+		<script src="{% static 'admin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'admin/plugins/datatables/datatables.min.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script  src="{% static 'admin/js/script.js' %}"></script>
+
+
+{% endblock %}

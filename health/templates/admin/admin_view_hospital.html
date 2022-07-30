@@ -1,0 +1,115 @@
+{% extends 'admin/admin_sidebar.html' %}
+{% load static %}
+{% block body %}
+<h2 style="font-family:roman;color:green" align="center" class="card">View Hospital</h2>
+
+
+
+   <div class="page-wrapper">
+                <div class="content container-fluid">
+
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+								<h3 class="page-title">List of Hospital</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+									<li class="breadcrumb-item active">Hospital</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Hospital Name</th>
+													<th>Foundation</th>
+													<th>Timing</th>
+													<th>No. of Bed</th>
+													<th>No. of Doctor</th>
+													<th>Status</th>
+
+												</tr>
+											</thead>
+											<tbody>
+											{% for i in data %}
+												<tr>
+													<td>
+														<h2 class="table-avatar">
+															<a href="#" class="avatar avatar-sm mr-2">
+																{% if i.image %}
+																<img  class="avatar-img rounded-circle" src="{{i.image.url}}" alt="User Image">
+																{% endif %}
+															</a>
+
+															<a href="#">{{i.name}}</a>
+														</h2>
+													</td>
+													<td>{{i.foundation_date}}</td>
+
+													<td> {{i.days_time}}<br><small>{{i.timing}}</small></td>
+
+
+													<td>{{i.nom_beds}}</td>
+
+													<td>{{i.nom_doctor}}</td>
+<td>
+													{% if i.status == "pending" %}
+														<div class="status-toggle">
+															<a href="{% url 'hospital_status' i.id %}" onclick="return confirm('Are you sure to grant access?')">{{i.status}}</a>
+														</div>
+														{% else %}
+
+													{% if i.status == None %}
+														<div class="status-toggle">
+															<a href="{% url 'hospital_status' i.id %}" onclick="return confirm('Are you sure to grant access?')">{{i.status}}</a>
+														</div>
+														{% else %}
+														<div class="status-toggle">
+															<a href="#">{{i.status}}</a>
+														</div>
+														{% endif %}
+														{% endif %}</td>
+												</tr>
+
+											{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
+
+
+
+<script src="{% static 'admin/js/jquery-3.2.1.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+
+		<!-- Slimscroll JS -->
+        <script src="{% static 'admin/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+		<!-- Datatables JS -->
+		<script src="{% static 'admin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'admin/plugins/datatables/datatables.min.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script  src="{% static 'admin/js/script.js' %}"></script>
+
+
+{% endblock %}

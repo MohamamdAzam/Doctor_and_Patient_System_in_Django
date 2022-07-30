@@ -1,0 +1,51 @@
+{% extends 'doctor/sidebar.html' %}
+{% load widget_tweaks %}
+{% block b %}
+{% load static %}
+<h2 style="font-family:roman;color:green" align="center" class="card">My Patients </h2>
+
+<div class="card">
+	{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+</div>
+
+							<div class="row row-grid">
+								{% for i in data %}
+								<div class="col-md-6 col-lg-4 col-xl-3">
+									<div class="card widget-profile pat-widget-profile">
+										<div class="card-body">
+											<div class="pro-widget-content">
+												<div class="profile-info-widget">
+													<a href="{% url 'doc_patient_dashboard' i.patient.id %}" class="booking-doc-img">
+														{% if i.patient.image %}
+														<img src="{{i.patient.image.url}}" alt="User Image">
+														{% endif %}
+													</a>
+													<div class="profile-det-info">
+														<h3><a href="{% url 'doc_patient_dashboard' i.patient.id %}">{{i.patient.user.first_name}} {{i.patient.user.last_name}}</a></h3>
+
+														<div class="patient-details">
+															<h5><b>Email :</b> {{i.patient.user.email}}</h5>
+															<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{i.patient.address}}</h5>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="patient-info">
+												<ul>
+													<li>Phone <span>+91 {{i.patient.mobile}}</span></li>
+													<li>Date of Birth <span>{{i.patient.dob}}</span></li>
+													<li>Blood Group <span>{{i.patient.blood_group}}</span></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+						{% endfor %}
+                        </div>
+
+
+			<!-- /Page Content -->
+{% endblock %}

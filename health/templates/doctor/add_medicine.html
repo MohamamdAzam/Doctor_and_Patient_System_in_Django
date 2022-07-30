@@ -1,0 +1,91 @@
+{% extends 'doctor/sidebar.html' %}
+{% load widget_tweaks %}
+{% block b %}
+{% load static %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Add Medicine & Prescribe </h2>
+
+<div class="card">
+	{% for i in messages %}
+                <p>{{i}}</p>
+                {% endfor %}
+</div>
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+<div class="card" xmlns="http://www.w3.org/1999/html">
+
+
+								<div class="card-body">
+									<h4 class="card-title">Add Medicine</h4>
+									<div class="row form-row">
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Medicine <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" name="name">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Prescription <span class="text-danger">*(how to take in a day/times in a day)</span></label>
+												<input type="text" class="form-control" name="presc">
+											</div>
+										</div>
+
+									</div>
+								</div>
+</div>
+							<!-- /Basic Information -->
+
+							<!-- About Me -->
+							<!-- /Experience -->
+							<!-- Registrations -->
+
+							<div class="submit-section submit-btn-bottom">
+								<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+							</div>
+							</form>
+{% if med %}
+<h2 style="font-family:roman;color:green" align="center" class="card">View Doctors</h2>
+
+   <div class="page-wrapper">
+                <div class="content container-fluid">
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Medicine Name</th>
+													<th>Prescription</th>
+
+												</tr>
+											</thead>
+											<tbody>
+											{% for i in med %}
+												<tr>
+													<td>
+														{{i.medicine}}
+													</td>
+													<td>{{i.prescription}}</td>
+
+
+
+												</tr>
+{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
+
+{% endif %}
+
+
+{% endblock %}

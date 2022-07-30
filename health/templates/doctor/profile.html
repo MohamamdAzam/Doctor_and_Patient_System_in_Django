@@ -1,0 +1,192 @@
+{% extends 'doctor/sidebar.html' %}
+{% load widget_tweaks %}
+{% block b %}
+{% load static %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Profile </h2>
+
+<div class="card">
+	{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+</div>
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+<div class="card" xmlns="http://www.w3.org/1999/html">
+
+
+								<div class="card-body">
+									<h4 class="card-title">Basic Information</h4>
+									<div class="row form-row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<div class="change-avatar">
+													{% if request.user.doctor_set.all.0.image %}
+													<div class="profile-img">
+														<img src="{{request.user.doctor_set.all.0.image.url}}" alt="User Image">
+													</div>
+													{% endif %}
+													<div class="upload-img">
+														<div class="change-photo-btn">
+															<span><i class="fa fa-upload"></i> Upload Photo</span>
+															<input type="file" class="upload" name="image">
+														</div>
+														<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Username <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" value="{{request.user.username}}" readonly>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Email <span class="text-danger">*</span></label>
+												<input type="email" class="form-control" name="email" value="{{request.user.email}}">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>First Name <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" name="first_name" value="{{request.user.first_name}}">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Last Name <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" name="last_name" value="{{request.user.last_name}}">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Phone Number</label>
+												{% render_field form.mobile type="number" class="form-control" value=request.user.doctor_set.all.0.mobile %}
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Gender</label>
+												{% render_field form.gender  class="form-control" value=request.user.doctor_set.all.0.gender %}
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group mb-0">
+												<label>Date of Birth</label>
+												{% render_field form.dob type="date" class="form-control" value=request.user.doctor_set.all.0.dob %}
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group mb-0">
+												<label>Address</label>
+												{% render_field form.address class="form-control" value=request.user.doctor_set.all.0.address %}
+											</div>
+										</div>
+									</div>
+								</div>
+</div>
+							<!-- /Basic Information -->
+
+							<!-- About Me -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">About Me</h4>
+									<div class="form-group mb-0">
+										<label>Biography</label>
+										{% render_field form.biography class="form-control" value=request.user.doctor_set.all.0.biography %}
+									</div>
+								</div>
+							</div>
+							<!-- /About Me -->
+
+							<!-- Clinic Info -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Clinic Info</h4>
+									<div class="row form-row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Clinic Name</label>
+												{% render_field form.clinic class="form-control" value=request.user.doctor_set.all.0.clinic %}
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Clinic Address</label>
+												{% render_field form.cl_address class="form-control" value=request.user.doctor_set.all.0.cl_address %}
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Days</label>
+												{% render_field form.daystiming class="form-control" value=request.user.doctor_set.all.0.daystiming %}
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Timing</label>
+												{% render_field form.timing class="form-control" value=request.user.doctor_set.all.0.timing %}
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Pricing</h4>
+									<div class="row custom_price_cont" id="custom_price_cont">
+										<div class="col-md-4">
+											{% render_field form.price class="form-control" value=request.user.doctor_set.all.0.price %}
+											<small class="form-text">Price you can add(per hour)</small>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<!-- /Pricing -->
+
+							<!-- Services and Specialization -->
+							<div class="card services-card">
+								<div class="card-body">
+									<h4 class="card-title">Services and Specialization</h4>
+									<div class="form-group">
+										<label>Services</label>
+										{% render_field form.service class="form-control" value=request.user.doctor_set.all.0.service %}
+									</div>
+									<div class="form-group mb-0">
+										<label>Specialization </label>
+										{% render_field form.specialist class="form-control" value=request.user.doctor_set.all.0.specialist %}
+									</div>
+								</div>
+							</div>
+							<!-- /Services and Specialization -->
+
+	<!-- /Education -->
+
+							<!-- Experience -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Experience</h4>
+									<div class="experience-info">
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															{% render_field form.experience class="form-control" value=request.user.doctor_set.all.0.experience %}
+														</div>
+													</div>
+												</div>
+											</div>
+									</div>
+							<!-- /Experience -->
+							<!-- Registrations -->
+
+							<div class="submit-section submit-btn-bottom">
+								<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+							</div>
+							</form>
+
+{% endblock %}

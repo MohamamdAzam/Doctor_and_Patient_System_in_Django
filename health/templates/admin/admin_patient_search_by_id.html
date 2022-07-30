@@ -1,0 +1,216 @@
+{% extends 'admin/admin_sidebar.html' %}
+{% load static %}
+{% block body %}
+
+<div class="page-wrapper">
+                <div class="content container-fluid">
+<!--<h2 style="font-family:roman;color:green" align="center" class="card">Patient Detail</h2> --> 
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+             <div class="content container-fluid">
+<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								{% for i in messages %}
+									<p style="color:red">{{i}}</p>
+								{% endfor %}
+								<h3 class="page-title">List of Patients</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:(0);">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+									<li class="breadcrumb-item active">Patient Search By I'd</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+
+
+							<!-- Schedule Widget -->
+							<div class="card booking-schedule schedule-widget">
+
+								<!-- Schedule Header -->
+								<div class="schedule-header">
+									<div class="row">
+										<div class="col-md-12">
+											{% for i in messages %}
+											<p style="color:red">{{i}}</p>
+											{% endfor %}
+											<form action="" method="post">
+												{% csrf_token %}
+												<div class="form-group">
+
+													<h4 class="page-title">Enter Health Card Id</h4>
+													<input type="text" class="form-control" name="uid" style="width: 300px; height:30px">
+												</div>
+
+                                                <button type="submit"  class="btn btn-primary submit-btn" >Search</button>
+							</form>
+										</div>
+
+
+										</div>
+									</div>
+								</div>
+								<!-- /Schedule Header -->
+                            </div>
+
+
+							<!-- /Submit Section -->
+
+						</div>
+
+{% if data %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Patient Detail ({{i}})</h2>
+
+<div class="card">
+    <div class="row">
+        <!-- Appointment List -->
+        <div class="col-4">
+            <p>
+                Image
+            </p>
+        </div>
+        <div class="col-8">
+            <p>
+                Patient Detail
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="appointments">
+
+    <!-- Appointment List -->
+	<div class="card">
+    <div class="appointment-list">
+        <div class="profile-info-widget">
+            <div class="row">
+             <div class="col-4">
+            <a href="#" class="booking-doc-img">
+                <img src="{{data.image.url}}" alt="User Image">
+            </a>
+             </div>
+             <div class="col-8">
+
+                <h3><a href="#">{{data.user.first_name}} {{data.user.last_name}}</a></h3>
+                <div class="patient-details">
+                    <h5><i class="fas fa-map-marker-alt"></i> {{data.address}}</h5>
+                    <h5><i class="fas fa-envelope"></i> {{data.user.email}}</h5>
+                    <h5 class="mb-0"><i class="fas fa-phone"></i> +91 {{data.mobile}}</h5>
+            </div>
+
+
+    </div>
+            </div></div></div></div>
+</div>
+<h2 style="font-family:roman;color:green" align="center" class="card">Doctors Appointment</h2>
+<div class="row">
+						<div class="col-md-12">
+
+							<!-- Recent Orders -->
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Doctor Name</th>
+													<th>Speciality</th>
+													<th>Patient Name</th>
+													<th>Apointment Time</th>
+													<th>Status</th>
+													<th class="text-right">Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for i in appointment %}
+												<tr>
+													<td>
+														<h2 class="table-avatar">
+															<a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.doctor.user.doctor_set.all.0.image.url}}" alt="User Image"></a>
+															<a href="profile.html">Dr. {{i.doctor.user.first_name}} {{i.doctor.user.last_name}}</a>
+														</h2>
+													</td>
+													<td>Dental</td>
+													<td>
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.patient.user.patient_set.all.0.image.url}}" alt="User Image"></a>
+															<a href="profile.html"> {{i.patient.user.first_name}}</a>
+														</h2>
+													</td>
+													<td>{{i.a_date}} <span class="text-primary d-block">{{i.a_timing}}</span></td>
+													<td> <span class="text-primary d-block">{{i.status}}</span></td>
+													<td class="text-right">
+														{{i.doctor.user.doctor_set.all.0.price}}
+													</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+{% if hos_appointment %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Hospitals Appointment</h2>
+<div class="row">
+						<div class="col-md-12">
+
+							<!-- Recent Orders -->
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Doctor Name</th>
+													<th>Speciality</th>
+													<th>Patient Name</th>
+													<th>Apointment Time</th>
+													<th>Status</th>
+													<th class="text-right">Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for i in hos_appointment %}
+												<tr>
+													<td>
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.hospital.user.hospital_set.all.0.image.url}}" alt="User Image"></a>
+															<a href="profile.html"> {{i.hospital.name}} </a>
+														</h2>
+													</td>
+													<td>Dental</td>
+													<td>
+														<h2 class="table-avatar">
+															<a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.patient.user.patient_set.all.0.image.url}}" alt="User Image"></a>
+															<a href="profile.html"> {{i.patient.user.first_name}} {{i.patient.user.last_name}}</a>
+														</h2>
+													</td>
+													<td>{{i.a_date}} <span class="text-primary d-block">{{i.a_timing}}</span></td>
+													<td> <span class="text-primary d-block">{{i.status}}</span></td>
+													<td> <span class="text-primary d-block">{{i.price}}</span></td>
+													<td class="text-right">
+
+													</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endif %}
+
+{% endif %}
+					</div>
+				</div>
+{% endblock %}

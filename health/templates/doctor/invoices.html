@@ -1,0 +1,229 @@
+<!DOCTYPE html> 
+<html lang="en">
+{% load static %}
+	
+<!-- doccure/invoice-view.html  30 Nov 2019 04:12:19 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>Doccure</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link href="{% static 'user/img/favicon.png' %}" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{% static 'user/css/bootstrap.min.css' %}">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="{% static 'user/plugins/fontawesome/css/fontawesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'user/plugins/fontawesome/css/all.min.css' %}">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="{% static 'user/css/style.css' %}">
+		
+		<!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="{% static 'user/js/html5shiv.min.js' %}"></script>
+			<script src="{% static 'user/js/respond.min.js' %}"></script>
+		<![endif]-->
+
+
+	<style>
+	@media print{
+    body * {
+        visibility: hidden;
+    }
+
+    .print-container, .print-container * {
+            visibility : visible;
+    }
+    .print-container {
+        position:absolute;
+        left:0px;
+        top:0px;
+    }
+}
+</style>
+
+
+
+	</head>
+	<body>
+<div class="main-wrapper">
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Invoice View</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">Invoice View</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content print-container">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2">
+							<div class="invoice-content">
+								<div class="invoice-item">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="invoice-logo">
+												<img src="{% static 'user/img/favicon (1).png' %}" class="img-fluid" alt="Logo" style="width:130px;height:80px">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<p class="invoice-details">
+												<strong>Order:</strong> #00124 <br>
+												<strong>Issued:</strong> {{pat.a_date}}
+											</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Invoice Item -->
+								<div class="invoice-item">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="invoice-info">
+												<strong class="customer-text">Invoice From</strong>
+												<p class="invoice-details invoice-details-two">
+													Dr. {{pat.doctor.user.first_name}} {{pat.doctor.user.last_name}} <br>
+													{{pat.doctor.cl_address}}<br>
+													{{pat.doctor.address}}<br>
+												</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="invoice-info invoice-info2">
+												<strong class="customer-text">Invoice To</strong>
+												<p class="invoice-details">
+													{{pat.patient.user.first_name}} {{pat.patient.user.last_name}} <br>
+													{{pat.patient.address}} <br>
+													<br>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Invoice Item -->
+								
+								<!-- Invoice Item -->
+								<div class="invoice-item">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="invoice-info">
+												<strong class="customer-text">Payment Method</strong>
+												<p class="invoice-details invoice-details-two">
+													Debit Card <br>
+													XXXXXXXXXXXX-2541 <br>
+													HDFC Bank<br>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Invoice Item -->
+								<div class="invoice-item invoice-table-wrap">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="invoice-table table table-bordered">
+													<thead>
+														<tr>
+															<th>Medicine</th>
+															<th class="text-center">Prescription</th>
+
+														</tr>
+													</thead>
+													<tbody>
+													{% for i in med %}
+														<tr>
+
+															<td class="text-center">{{i.medicine}}</td>
+															<td class="text-center">{{i.prescription}}</td>
+														</tr>
+													{% endfor %}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Invoice Item -->
+								<div class="invoice-item invoice-table-wrap">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="invoice-table table table-bordered">
+													<thead>
+														<tr>
+															<th>Description</th>
+															<th class="text-center">Quantity</th>
+															<th class="text-center">VAT</th>
+															<th class="text-right">Total</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>General Consultation</td>
+															<td class="text-center">1</td>
+															<td class="text-center">$0</td>
+															<td class="text-right">{{pat.doctor.price}}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="col-md-6 col-xl-4 ml-auto">
+											<div class="table-responsive">
+												<table class="invoice-table-two table">
+													<tbody>
+													<tr>
+														<th>Total Amount:</th>
+														<td><span>{{pat.doctor.price}}</span></td>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Invoice Item -->
+								
+								<!-- Invoice Information -->
+								<!-- /Invoice Information -->
+								
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+	<center><button class="btn btn-primary" onclick="window.print();">print</button></center>
+</div>
+    
+<script src="{% static 'user/js/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="{% static 'user/js/popper.min.js' %}"></script>
+		<script src="{% static 'user/js/bootstrap.min.js' %}"></script>
+		
+		<!-- Custom JS -->
+		<script src="{% static 'user/js/script.js' %}"></script>
+		
+	</body>
+
+<!-- doccure/invoice-view.html  30 Nov 2019 04:12:20 GMT -->
+</html>

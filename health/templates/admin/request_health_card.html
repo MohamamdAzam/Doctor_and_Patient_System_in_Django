@@ -1,0 +1,97 @@
+{% extends 'admin/admin_sidebar.html' %}
+{% load static %}
+{% block body %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Pending Patients for Health Card</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+   <div class="page-wrapper">
+                <div class="content container-fluid">
+
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">List of Patients</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+									<li class="breadcrumb-item active">Patient</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Patient Id</th>
+													<th>Patient Name</th>
+													<th>Email</th>
+													<th>Date of Birth</th>
+													<th>Address</th>
+													<th>Phone</th>
+													<th>Card Status</th>
+
+												</tr>
+											</thead>
+											<tbody>
+											{% for i in data %}
+												<tr>
+														<td> #{{i.id}}<br><small></small></td>
+													<td>
+														<h2 class="table-avatar">
+															<a href="#" class="avatar avatar-sm mr-5">
+																{% if i.image %}
+																<img  class="avatar-img rounded-circle" src="{{i.image.url}}" alt="User Image">
+																{% endif %}
+															</a>
+
+															<a href="#">{{i.user.first_name}} {{i.user.last_name}}</a>
+														</h2>
+													</td>
+                                                    <td>{{i.user.email}}</td>
+													<td>{{i.dob}}</td>
+
+													<td> {{i.address}}<br><small></small></td>
+
+													<td>{{i.mobile}}</td>
+
+													<td>
+														<div class="status-toggle">
+															<a href="{% url 'grant_card' i.id %}" ><button class="btn btn-danger" onclick="return confirm('Are you sure for grant permission to generate Health Card?')">! {{i.card_status}}</button></a>
+                                                        </div>
+													</td>
+												</tr>
+{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</div>
+  <script src="{% static 'admin/js/jquery-3.2.1.min.js' %}"></script>
+
+		<!-- Bootstrap Core JS -->
+
+		<!-- Slimscroll JS -->
+        <script src="{% static 'admin/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+		<!-- Datatables JS -->
+		<script src="{% static 'admin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'admin/plugins/datatables/datatables.min.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script  src="{% static 'admin/js/script.js' %}"></script>
+
+
+{% endblock %}

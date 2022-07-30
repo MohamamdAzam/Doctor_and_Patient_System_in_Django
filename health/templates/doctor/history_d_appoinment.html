@@ -1,0 +1,69 @@
+{% extends 'doctor/sidebar.html' %}
+{% load static %}
+{% block b %}
+<h2 style="font-family:roman;color:green" align="center" class="card">History of Appointments</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+        <div class="card">
+                    <div class="row">
+                        <!-- Appointment List -->
+                        <div class="col-3">
+                            <p>
+                                Image
+                            </p>
+                        </div>
+                            <div class="col-5">
+                                <p>
+                                    Patient Detail
+                                </p>
+                            </div>
+
+                        <div class="col-4">
+                                    <span style="margin-right:5%;margin-left:30%">
+                                        Payment
+                                    </span>
+
+                                    <span style="margin-left:6%">
+                                        Status
+                                    </span>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+    {% for i in data %}
+        <div class="appointments">
+
+                <!-- Appointment List -->
+                <div class="appointment-list">
+                    <div class="profile-info-widget">
+                        <a href="#" class="booking-doc-img">
+                            <img src="{{i.patient.image.url}}" alt="User Image">
+                        </a>
+                        <div class="profile-det-info">
+                            <h3><a href="#">{{i.patient.user.first_name}} {{i.patient.user.last_name}}</a></h3>
+                            <div class="patient-details">
+                                <h5><i class="far fa-clock"></i>{{i.a_date}}</h5>
+                                <h5><i class="fas fa-map-marker-alt"></i> {{i.patient.address}}</h5>
+                                <h5><i class="fas fa-envelope"></i> {{i.patient.user.email}}</h5>
+                                <h5 class="mb-0"><i class="fas fa-phone"></i> +91 {{i.patient.mobile}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="appointment-action">
+                        <a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
+                            <i class="far fa-eye"></i> {{i.p_status}}
+                        </a>
+                        <a href="{% url 'update_status' i.id %}" class="btn btn-sm bg-success-light">
+                            <i class="fas fa-check"></i>{{i.status}}
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+{% endfor %}
+
+{% endblock %}

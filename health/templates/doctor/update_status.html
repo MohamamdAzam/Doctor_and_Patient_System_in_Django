@@ -1,0 +1,75 @@
+{% extends 'doctor/sidebar.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block b %}
+
+
+<div class="content">
+				<div class="container">
+
+					<div class="row">
+						<div class="col-12">
+
+							<div class="card">
+								{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+								<div class="card-body">
+									<div class="booking-doc-info">
+										<a href="doctor-profile.html" class="booking-doc-img">
+											<img src="{{data.patient.image.url}}" alt="User Image">
+										</a>
+										<div class="booking-info">
+											<h4><a href="doctor-profile.html"> {{data.patient.user.first_name}}</a></h4>
+											<div class="rating">
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star filled"></i>
+												<i class="fas fa-star"></i>
+												<span class="d-inline-block average-rating">35</span>
+											</div>
+											<p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> {{data.patient.address}}, India</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Schedule Widget -->
+							<div class="card booking-schedule schedule-widget">
+
+								<!-- Schedule Header -->
+								<div class="schedule-header">
+									<div class="row">
+										<div class="col-md-12">
+
+											<form action="" method="post">
+{% csrf_token %}
+												<div class="form-group">
+
+													<label>Enter Appointment Date</label>
+													{% render_field form.a_date type="date" class="form-control" %}
+													<label>Enter Appointment Timeing</label>
+													<input type="time" class="form-control" name="a_timing">
+												</div>
+
+                                                <button type="submit"  class="btn btn-primary submit-btn">Update</button>
+							</div>
+
+</form>
+										</div>
+									</div>
+								</div>
+								<!-- /Schedule Header -->
+                            </div>
+
+
+							<!-- /Submit Section -->
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		{% endblock %}

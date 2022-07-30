@@ -1,0 +1,152 @@
+{% extends 'doctor/sidebar.html' %}
+{% block b %}
+{% load static %}
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<!-- Breadcrumb -->
+			<!-- /Breadcrumb -->
+
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Add Prescription</h4>
+									{% for i in messages %}
+					<p style="color:red">{{i}}</p>
+{% endfor %}
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="biller-info">
+												<h4 class="d-block">{{data.patient.user.first_name}} {{data.patient.user.last_name}}</h4>
+												<span class="d-block text-sm text-muted">{{data.patient.user.email}}</span>
+												<span class="d-block text-sm text-muted">{{data.patient.address}}</span>
+											</div>
+										</div>
+										<div class="col-sm-6 text-sm-right">
+											<div class="billing-info">
+												<h4 class="d-block">{{data.patient.dob}}</h4>
+											</div>
+										</div>
+									</div>
+
+									<!-- Add Item -->
+									<form action="{% url 'add_presc' data.id %}" method="post">
+										{% csrf_token %}
+									<div class="add-more-item text-right">
+										<button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Item</button>
+									</div>
+									<!-- /Add Item -->
+
+									<!-- Prescription Item -->
+									<div class="card card-table">
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table table-hover table-center">
+													<thead>
+														<tr>
+															<th style="min-width: 200px">Name</th>
+															<th style="min-width: 100px">Quantity</th>
+															<th style="min-width: 100px">Days</th>
+															<th style="min-width: 100px;">Time</th>
+															<th style="min-width: 80px;"></th>
+														</tr>
+													</thead>
+													<tbody>
+													{% for i in data.prescription_set.all %}
+													<tr>
+														<td>{{i.name}}</td>
+														<td>{{i.quantity}}</td>
+														<td>{{i.days}}</td>
+														<td>{{i.time}}</td>
+														<td>
+															<a href="{% url 'delete_presc' i.id %}" onclick="return confirm('Are you sure?')" class="btn bg-danger-light trash"><i class="far fa-trash-alt"></i></a>
+														</td>
+													</tr>
+													{% endfor %}
+														<tr>
+															<td>
+																<input class="form-control" type="text" name="name">
+															</td>
+															<td>
+																<input class="form-control" type="text" name="presc">
+															</td>
+															<td>
+																<input class="form-control" type="text" name="days">
+															</td>
+															<td>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox" name="time[]" value="Morning"> Morning
+																	</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox" name="time[]" value="Afternoon"> Afternoon
+																	</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox" name="time[]" value="Evening"> Evening
+																	</label>
+																</div>
+																<div class="form-check form-check-inline">
+																	<label class="form-check-label">
+																		<input class="form-check-input" type="checkbox" name="time[]" value="Night"> Night
+																	</label>
+																</div>
+															</td>
+															<td>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									</form>
+									<!-- /Prescription Item -->
+
+									<!-- Signature -->
+									<div class="row">
+										<div class="col-md-12 text-right">
+											<div class="signature-wrap">
+												<div class="sign-name">
+													<p class="mb-0">( Dr. {{request.user.first_name}} {{request.user.last_name}})</p>
+													<span class="text-muted">Signature</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- /Signature -->
+
+									<!-- Submit Section -->
+									<div class="row">
+										<div class="col-md-12">
+											<div class="submit-section">
+												<form action="" method="post">
+													{% csrf_token %}
+													<button type="submit" class="btn btn-primary submit-btn">Save</button>
+													<button type="reset" class="btn btn-secondary submit-btn">Clear</button>
+												</form>
+
+											</div>
+										</div>
+									</div>
+									<!-- /Submit Section -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+	  
+{% endblock %}

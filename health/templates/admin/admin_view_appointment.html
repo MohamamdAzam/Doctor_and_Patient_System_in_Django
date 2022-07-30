@@ -1,0 +1,95 @@
+{% extends 'admin/admin_sidebar.html' %}
+{% block body %}
+{% load static %}
+<h2 style="font-family:roman;color:green" align="center" class="card">View Appointment</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+<div class="page-wrapper">
+                <div class="content container-fluid">
+
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">Appointments</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item active">Appointments</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+
+							<!-- Recent Orders -->
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Doctor Name</th>
+													<th>Speciality</th>
+													<th>Patient Name</th>
+													<th>Apointment Time</th>
+													<th>Status</th>
+													<th class="text-right">Amount</th>
+													<th class="text-right">Invoices</th>
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for i in data %}
+												<tr>
+													<td>
+														<h2 class="table-avatar">
+															<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.doctor.user.doctor_set.all.0.image.url}}" alt="User Image"></a>
+															<a href="#">Dr. {{i.doctor.user.first_name}} {{i.doctor.user.last_name}}</a>
+														</h2>
+													</td>
+													<td>Dental</td>
+													<td>
+														<h2 class="table-avatar">
+															<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{i.patient.user.patient_set.all.0.image.url}}" alt="User Image"></a>
+															<a href="#"> {{i.patient.user.first_name}}</a>
+														</h2>
+													</td>
+													<td>{{i.a_date}} <span class="text-primary d-block">{{i.a_timing}}</span></td>
+													<td> <span class="text-primary d-block">{{i.status}}</span></td>
+													<td class="text-right">
+														{{i.doctor.user.doctor_set.all.0.price}}
+													</td>
+
+													<td class="text-right">
+														<a href="{% url 'admin_patient_invoices' i.id %}">View</a>
+													</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+
+<script src="{% static 'admin/js/jquery-3.2.1.min.js' %}"></script>
+		<!-- Bootstrap Core JS -->
+
+        <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
+
+		<!-- Slimscroll JS -->
+        <script src="{% static 'admin/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+		<!-- Datatables JS -->
+		<script src="{% static 'admin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'admin/plugins/datatables/datatables.min.js' %}"></script>
+
+		<!-- Custom JS -->
+		<script  src="{% static 'admin/js/script.js' %}"></script>
+
+
+{% endblock %}

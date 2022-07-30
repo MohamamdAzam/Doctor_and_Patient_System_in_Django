@@ -1,0 +1,170 @@
+{% extends 'patient/sidebar.html' %}
+{% load static %}
+{% block b %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Search Doctor</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+		<h4 style="color:green"> filtered location : "{{l}}" , Gender : "{{g}}" & specialist : "{{s}}"</h4>
+                        <div class="col-md-8 col-lg-8 col-xl-9">
+{% for i in data %}
+							<!-- Doctor Widget -->
+							<div class="card">
+								<div class="card-body">
+									<div class="doctor-widget">
+										<div class="doc-info-left">
+											<div class="doctor-img">
+												<a href="doctor-profile.html">
+                                                    {% if i.image %}
+													<img src="{{i.image.url}}" class="img-fluid" alt="User Image">
+                                                    {% else %}
+                                                    {% endif %}
+												</a>
+											</div>
+											<div class="doc-info-cont">
+												<h4 class="doc-name"><a href="doctor-profile.html">Dr. {{i.user.first_name}}</a></h4>
+												<p class="doc-speciality">{{i.biography}}</p>
+												<h5 class="doc-department"><img src="{% static 'user/img/specialities/specialities-05.png' %}" class="img-fluid" alt="Speciality">{{i.specialist}}</h5>
+
+												<div class="clinic-details">
+													<p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{i.cl_address}}</p>
+													<p class="doc-location"><i class="fas fa-user"></i> {{i.gender}}</p>
+													<p class="doc-location"><i class="fas fa-phone"></i> {{i.mobile}}</p>
+													<ul class="clinic-gallery">
+														<li>
+															<a href="{% static 'user/img/features/feature-01.jpg' %}" data-fancybox="gallery">
+																<img src="{% static 'user/img/features/feature-01.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'user/img/features/feature-02.jpg' %}" data-fancybox="gallery">
+																<img  src="{% static 'user/img/features/feature-02.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'user/img/features/feature-03.jpg' %}" data-fancybox="gallery">
+																<img src="{% static 'user/img/features/feature-03.jpg' %}" alt="Feature">
+															</a>
+														</li>
+														<li>
+															<a href="{% static 'user/img/features/feature-04.jpg' %}" data-fancybox="gallery">
+																<img src="{% static 'user/img/features/feature-04.jpg' %}" alt="Feature">
+															</a>
+														</li>
+													</ul>
+												</div>
+												<div class="clinic-services">
+													<span>{{i.specialist}}</span>
+												</div>
+											</div>
+										</div>
+										<div class="doc-info-right">
+											<div class="clini-infos">
+												<ul>
+													<li><i class="fas fa-map-marker-alt"></i>{{i.address}}</li>
+													<li><i class="fas fa-map-marker-alt"></i>{{i.experience}} Year</li>
+													<li><i class="fas fa-map-marker-alt"></i>{{i.daystiming}}</li>
+													<li><i class="fas fa-map-marker-alt"></i>{{i.timing}}</li>
+													<li><i class="fas fa-map-marker-alt"></i>{{i.dob}}</li>
+													<li><i class="far fa-money-bill-alt"></i> {{i.price}} <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
+												</ul>
+											</div>
+											<div class="clinic-booking">
+
+												<a class="apt-btn" href="{% url 'appointment' i.id %}">Book Appointment</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+	{% endfor %}
+						</div>
+
+
+
+
+							<!-- Search Filter -->
+
+                        <div class="col-md-4 col-lg-4 col-xl-3">
+
+							<form action="" method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+							<div class="card search-filter">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Search Filter</h4>
+								</div>
+								<div class="card-body">
+								<div class="filter-widget">
+									<h4>Location</h4>
+									<div class="">
+										<input type="text" class="form-control" placeholder="location" name="location">
+									</div>
+								</div>
+								<div class="filter-widget">
+									<h4>Gender</h4>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="gender_type" value="Male">
+											<span class="checkmark"></span> Male Doctor
+										</label>
+									</div>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="gender_type" value="Female">
+											<span class="checkmark"></span> Female Doctor
+										</label>
+									</div>
+								</div>
+								<div class="filter-widget">
+									<h4>Select Specialist</h4>
+									<li>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="specialist" value="Urology">
+											<span class="checkmark"></span> Urology
+										</label>
+									</div>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="specialist" value="Urology">
+											<span class="checkmark"></span> Neurology
+										</label>
+									</div>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="specialist" value="Dentist">
+											<span class="checkmark"></span> Dentist
+										</label>
+									</div>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="specialist" value="Orthopedic">
+											<span class="checkmark"></span> Orthopedic
+										</label>
+									</div>
+									<div>
+										<label class="custom_check">
+											<input type="checkbox" name="specialist" value="Cardiologist">
+											<span class="checkmark"></span> Cardiologist
+										</label>
+									</div>
+								</div></li>
+									<div class="btn-search">
+										<button type="submit" class="btn btn-primary">Search</button>
+									</div>
+								</div>
+							</div>
+							<!-- /Search Filter -->
+							</form>
+						</div>
+                    </div>
+                </div></div>
+
+
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'patient/sidebar.html' %}
+{% load static %}
+{% block b %}
+<h2 style="font-family:roman;color:green" align="center" class="card">Apply for Card</h2>
+{% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+<div class="content">
+				<div class="container">
+                    {% if request.user.patient_set.all %}
+                    {% if request.user.patient_set.all.0.card_status == "pending" %}
+                    <p>
+                        <button class="btn btn-danger">Pending verification Profile. !</button>
+                    </p>
+                    {% else %}
+                    {% if request.user.patient_set.all.0.card_status == None %}
+                    <p>If you want to Generating Health Card You will have to give your confirmation request only.</p>
+                    <a href="{% url 'thank_card' %}" onclick="return confirm('Are you sure about generating your health card ?')"><button class="btn btn-success">Apply for Card</button></a>
+                    {% else %}
+                    <p>Click Here to View Your Health Card.</p>
+                    <a href="{% url 'health_card' %}"><button class="btn btn-success">View Card</button></a>
+                    {% endif %}
+                    {% endif %}
+					{% else %}
+                    <p>For Generating Health Card You will have to set Profile First.</p>
+                    <a href="{% url 'patient_profile' %}"><button class="btn btn-primary">Update your profile</button></a>
+                    {% endif %}
+				</div>
+</div>
+{% endblock %}

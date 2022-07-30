@@ -1,0 +1,76 @@
+{% extends 'medical/sidebar.html' %}
+{% block b %}
+{% load static %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card dash-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-4">
+                                        {% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+                                        <div class="dash-widget dct-border-rht">
+                                            <div class="circle-bar circle-bar1">
+                                                <div class="circle-graph1" data-percent="75">
+                                                    <img src="{% static 'user/img/icon-01.png' %}" class="img-fluid"
+                                                         alt="patient">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-12 col-lg-4">
+                                        <div class="dash-widget">
+                                            <div class="circle-bar circle-bar3">
+                                                <div class="circle-graph3" data-percent="50">
+                                                    <img src="{% static 'user/img/icon-03.png' %}" class="img-fluid"
+                                                         alt="Patient">
+                                                </div>
+                                            </div>
+                                            <div class="dash-widget-info">
+                                                <h4 style="color:green"> Medical Dashboard</h4>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <
+
+                            <!-- Appointment Tab -->
+
+                            <!-- /Appointment Tab -->
+
+
+                                <!-- Upcoming Appointment Tab -->
+
+                                <!-- /Upcoming Appointment Tab -->
+
+                                <!-- Today Appointment Tab -->
+                                <!-- /Today Appointment Tab -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /Page Content -->
+
+{% endblock %}
+

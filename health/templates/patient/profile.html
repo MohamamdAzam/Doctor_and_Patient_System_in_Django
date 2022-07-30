@@ -1,0 +1,92 @@
+{% extends 'patient/sidebar.html' %}
+{% load widget_tweaks %}
+{% block b %}
+{% load static %}
+<h2 style="font-family:roman;color:red" align="center" class="card">Profile</h2>
+
+            <div class="card">
+              {% for i in messages %}
+<p style="color:red">{{i}}</p>
+{% endfor %}
+
+
+								<div class="card-body">
+
+									<!-- Profile Settings Form -->
+									<form action="" method="post" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="row form-row">
+											<div class="col-12 col-md-12">
+												<div class="form-group">
+													<div class="change-avatar">
+														<div class="profile-img">
+                                                            {% if request.user.patient_set.all.0.image %}
+															<img src="{{request.user.patient_set.all.0.image.url}}" alt="User Image">
+                                                            {% else %}
+
+                                                            {% endif %}
+														</div>
+														<div class="upload-img">
+															<div class="change-photo-btn">
+																<span><i class="fa fa-upload"></i> Upload Photo</span>
+																<input type="file" class="upload" name="image">
+															</div>
+															<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>First Name</label>
+													<input type="text" class="form-control" name="first_name" value="{{request.user.first_name}}">
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>Last Name</label>
+													<input type="text" class="form-control" name="last_name" value="{{request.user.last_name}}">
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>Date of Birth</label>
+														{% render_field form.dob class="form-control" type="date" placeholder=request.user.patient_set.all.0.dob %}
+
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>Blood Group</label>
+														{% render_field form.blood_group class="form-control" placeholder=form.blood_group.label %}
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>Email ID</label>
+													<input type="email" class="form-control" name="email" value="{{request.user.email}}">
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>Mobile</label>
+													{% render_field form.mobile class="form-control" placeholder=form.mobile.label %}
+												</div>
+											</div>
+											<div class="col-12">
+												<div class="form-group">
+												<label>Address</label>
+                                                   {% render_field form.address class="form-control"  value=form.address.value %}
+												</div>
+											</div>
+										<div class="submit-section">
+											<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+										</div>
+                                        </div>
+                                    </form>
+									<!-- /Profile Settings Form -->
+
+								</div>
+							</div>
+
+{% endblock %}

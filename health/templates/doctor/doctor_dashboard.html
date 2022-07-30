@@ -1,0 +1,214 @@
+{% extends 'doctor/sidebar.html' %}
+{% block b %}
+{% load static %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card dash-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4">
+
+                                                <h6> Today Appointment</h6>
+                                                <h3>{{t_today}}</h3>
+                                    </div>
+
+
+                                    <div class="col-4">
+                                                <h6> Pending Appointment</h6>
+                                                <h3>{{t_pending}}</h3>
+                                    </div>
+
+
+
+                                    <div class="col-4">
+                                                <h6> Total Appoinments</h6>
+                                                <h3>{{total}}</h3>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="mb-4">Patient Appoinment</h4>
+                        {% for i in messages %}
+                            <p style="color:red">{{i}}</p>
+                        {% endfor %}
+
+                        <div class="appointment-tab">
+
+                            <!-- Appointment Tab -->
+                            <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#upcoming-appointments"
+                                       data-toggle="tab">Upcoming</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#today-appointments" data-toggle="tab">Today</a>
+                                </li>
+                            </ul>
+                            <!-- /Appointment Tab -->
+
+                            <div class="tab-content">
+
+                                <!-- Upcoming Appointment Tab -->
+                                <div class="tab-pane show active" id="upcoming-appointments">
+                                    <div class="card card-table mb-0">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-center mb-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Patient Name</th>
+                                                        <th>Appt Date</th>
+                                                        <th>Timing</th>
+                                                        <th>Amount</th>
+                                                        <th class="text-center">Paid Amount</th>
+                                                        <th class="text-center">Status</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    {% for i in up %}
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                   class="avatar avatar-sm mr-2"><img
+                                                                        class="avatar-img rounded-circle"
+                                                                        src="{% static 'user/img/patients/patient.jpg' %}"
+                                                                        alt="User Image"></a>
+                                                                <a href="#">{{i.patient.user.first_name}} {{i.patient.user.last_name}} <span>#{{i.id}}</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>{{i.a_date}}
+                                                        </td>
+                                                        <td>{{i.a_timing}}</td>
+
+                                                        <td class="text-center">{{i.doctor.price}}</td>
+                                                        <td class="text-right">
+                                                            <div class="table-action">
+
+                                                                <a href="javascript:void(0);"
+                                                                   class="btn btn-sm bg-success-light">
+                                                                    <i class="fas fa-check"></i> {{i.p_status}}
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                                 <td class="text-right">
+                                                            <div class="table-action">
+                                                                <a href="javascript:void(0);"
+                                                                   class="btn btn-sm bg-success-light">
+                                                                    <i class="fas fa-check"></i> {{i.status}}
+                                                                </a>
+                                                            </div>
+                                                                 </td>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Upcoming Appointment Tab -->
+
+                                <!-- Today Appointment Tab -->
+                                <div class="tab-pane" id="today-appointments">
+                                    <div class="card card-table mb-0">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-center mb-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Patient Name</th>
+                                                        <th>Appt Date</th>
+                                                        <th>Purpose</th>
+                                                        <th>Amount</th>
+                                                        <th class="text-center">Paid Amount</th>
+                                                        <th class="text-center">Status</th>
+                                                        <th class="text-center">Medicine</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <tbody>
+                                                {% for i in today %}
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                   class="avatar avatar-sm mr-2"><img
+                                                                        class="avatar-img rounded-circle"
+                                                                        src="{% static 'user/img/patients/patient.jpg' %}"
+                                                                        alt="User Image"></a>
+                                                                <a href="#">{{i.patient.user.first_name}} {{i.patient.user.last_name}} <span>#{{i.id}}</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>{{i.a_date}}
+                                                        </td>
+                                                        <td>{{i.a_timing}}</td>
+
+                                                        <td class="text-center">{{i.doctor.price}}</td>
+                                                        <td class="text-right">
+                                                            <div class="table-action">
+
+                                                                <a href="javascript:void(0);"
+                                                                   class="btn btn-sm bg-success-light">
+                                                                    <i class="fas fa-check"></i> {{i.p_status}}
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                                 <td class="text-right">
+                                                            <div class="table-action">
+                                                                <a href="javascript:void(0);"
+                                                                   class="btn btn-sm bg-success-light">
+                                                                    <i class="fas fa-check"></i> {{i.status}}
+                                                                </a>
+                                                            </div>
+                                                                 </td>
+
+                                                    <td class="text-right">
+                                                        <div class="table-action">
+                                                                <a href="{% url 'doctor_invoice' i.id %}"
+                                                                   class="btn btn-sm bg-primary">
+                                                                     View
+                                                                </a>
+                                                            </div>
+                                                    </td>
+
+                                                    </tr>
+                                                 {% endfor %}
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Today Appointment Tab -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /Page Content -->
+
+{% endblock %}
